@@ -1,0 +1,30 @@
+:80 {
+	root * /srv
+	encode gzip zstd
+
+	redir /discord    https://discord.gg/h2sR45Nby8 permanent
+	redir /survey     https://tally.so/r/w2RjDL permanent
+	redir /changelog  https://kinopio.club/changelog-6lsytK8ZfOtMl2oqG05Rj permanent
+	redir /roadmap    https://kinopio.club/-roadmap-3CBHtivu7X7nTzrcaTFQV permanent
+	redir /api        https://help.kinopio.club/api
+	redir /forum      https://forum.kinopio.club
+
+	handle_path /help/* {
+		reverse_proxy https://kinopio-help.netlify.app {
+			header_up Host kinopio-help.netlify.app
+		}
+	}
+	handle_path /blog/* {
+		reverse_proxy https://kinopio-blog.netlify.app {
+			header_up Host kinopio-blog.netlify.app
+		}
+	}
+
+	@assets path /assets/*
+	header @assets Cache-Control "public, max-age=31536000, immutable"
+
+	handle {
+		try_files {path} /app.html
+		file_server
+	}
+}
