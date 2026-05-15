@@ -2,6 +2,8 @@
 	root * /srv
 	encode gzip zstd
 
+	header X-Robots-Tag "noindex, nofollow"
+
 	redir /discord    https://discord.gg/h2sR45Nby8 permanent
 	redir /survey     https://tally.so/r/w2RjDL permanent
 	redir /changelog  https://kinopio.club/changelog-6lsytK8ZfOtMl2oqG05Rj permanent
